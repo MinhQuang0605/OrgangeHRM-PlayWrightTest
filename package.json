@@ -11,7 +11,9 @@
     "test:example": "playwright test example",
     "test:report": "playwright show-report",
     "test:login": "playwright test tests/login.spec.ts --project=chromium --headed",
-    "test:logincsv": "playwright test tests/login-data.spec.ts --project=chromium --headed"
+    "test:logincsv": "playwright test tests/login-data.spec.ts --project=chromium --headed",
+    "test:home": "playwright test tests/home.spec.ts --project=chromium --headed",
+    "test:MyInfo": "playwright test tests/myinfo.spec.ts --project=chromium --headed"
   },
   "keywords": [],
   "author": "",

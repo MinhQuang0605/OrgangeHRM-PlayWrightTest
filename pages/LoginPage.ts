@@ -20,6 +20,7 @@ export class LoginPage{
 
     async login(username: string, password: string): Promise<void> {
         //B1: Navigate vao login page
+        await this.page.waitForTimeout(3000);
         await this.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 
         //B2: fill username vao input
@@ -33,6 +34,7 @@ export class LoginPage{
     //function: login, validate
 
     async isLoginSuccessful(): Promise<boolean> {
+       // await this.page.waitForTimeout(3000);
         //case 1: test URl co /dashboard hay khong
         let url = this.page.url();
         return url.includes('/dashboard');

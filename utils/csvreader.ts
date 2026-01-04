@@ -5,6 +5,7 @@
 import { readFile } from 'fs/promises';
 import {join} from 'path';
 import { parse } from 'csv-parse/sync';
+import { readFileSync } from 'fs';
 
 //dinh nghia du lieu co trong file csv
 export interface LoginData {
@@ -14,14 +15,14 @@ export interface LoginData {
     description: string;
 }
 
-export const readDataFromCSV = async (): Promise<LoginData[]> => {
+export const readDataFromCSV =  (): LoginData[] => {
     //B1: Xac dinh duong dan tuyet doi den file csv
     //../data/loginData.csv
     //__dirname: thu muc hien tai cua file dang dung
     const csvpath = join(__dirname, '..', 'data', 'loginData.csv');
 
     //B2: Doc file csv
-    const fileContent = await readFile(csvpath, { encoding: 'utf-8' });
+    const fileContent =  readFileSync(csvpath, { encoding: 'utf-8' });
 
     //B3: Parse data string sang list login data
     const data = parse(fileContent, {
