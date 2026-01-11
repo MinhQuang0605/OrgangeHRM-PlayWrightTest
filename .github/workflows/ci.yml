@@ -33,7 +33,7 @@ jobs:
             #B4 cai browser co san cua playwright
             # --with-deps cai dat cac thu vien phu thuoc cua browser
           - name: Install playwright browsers
-            run: npm playwright install --with-deps
+            run: npx playwright install --with-deps
 
             #B5 chay test
           - name: Run playwright test
