@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {HomePage} from '../pages/Homepage';
+import {HomePage} from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { time } from 'node:console';
 

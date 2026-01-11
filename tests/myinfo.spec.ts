@@ -1,6 +1,6 @@
 import { test,expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
-import { HomePage } from "../pages/Homepage";
+import { HomePage } from "../pages/HomePage";
 import { MyInfoPage } from "../pages/MyInfoPage";
 
 test.describe("My Info Page Tests", ()=>{
