@@ -1,4 +1,5 @@
 import {Page, Locator} from '@playwright/test';
+import { hightlightAndScreenshot } from '../utils/screenshot';
 
 export class LoginPage{
     //locator
@@ -25,10 +26,43 @@ export class LoginPage{
 
         //B2: fill username vao input
         await this.usernameInput.fill(username);
+        await hightlightAndScreenshot(
+            this.page,
+            this.usernameInput,
+            "Login Test",
+            "fill_username"
+        )
         //B3: fill password vao input
         await this.passwordInput.fill(password);
+  
+        await hightlightAndScreenshot(
+            this.page,
+            this.passwordInput,
+            "Login Test",
+            "fill_password"
+        )
         //B4: click login button
+        await hightlightAndScreenshot(
+            this.page,
+            this.loginButton,
+            "Login Test",
+            "click_button_login"
+        )
+        await hightlightAndScreenshot(
+            this.page,
+            this.usernameInput,
+            "Login Test",
+            "click_button_login"
+        )
         await this.loginButton.click();
+
+        //B5: Chup screenshot ket qua login
+        // await hightlightAndScreenshot(
+        //     this.page,
+        //     this.usernameInput,
+        //     "Login Test",
+        //     "login_result"
+        // )
 
     }
     //function: login, validate
@@ -36,8 +70,13 @@ export class LoginPage{
     async isLoginSuccessful(): Promise<boolean> {
        // await this.page.waitForTimeout(3000);
         //case 1: test URl co /dashboard hay khong
-        let url = this.page.url();
-        return url.includes('/dashboard');
-        
+        try{
+            await this.page.waitForURL(/.*dashboard/, {timeout: 10000});
+            return true;
+        }catch(e){
+            return false;
+        }
     }
+
+    
 }

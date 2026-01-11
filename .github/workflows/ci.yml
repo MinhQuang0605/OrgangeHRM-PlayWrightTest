@@ -1,0 +1,41 @@
+name: CI - chay test
+
+#dieu kien de chay pipeline
+#trigger chay test khi push code len github
+#thuc te khi tao pull request se trigger pipeline
+#merge pull request se trigger pipeline
+on:
+    push:
+        branches: [main,master]
+
+jobs: 
+    test: #define step test
+        #chon moi truong de chay step test
+        # ubuntu-latest: môi trường linux
+         # windows-latest: môi trường windows
+        # macos-latest: môi trường macos
+        runs-on: ubuntu-latest
+        steps:
+          # B1: Clone source code tu github
+          - name: checkout code
+            uses: actions/checkout@v4
+          # B2 thiet lap tren moi truong node.js
+          - name: Setup Node.js
+            uses: actions/setup-node@v4
+            with:
+                node-version: '20'
+                cache: npm #cache nay giup tang toc do build playwright nhanh hon
+            
+            # B3 cai dat cac thu vien trong source code playwright
+          - name: Install dependencies
+            run: npm install
+
+            #B4 cai browser co san cua playwright
+            # --with-deps cai dat cac thu vien phu thuoc cua browser
+          - name: Install playwright browsers
+            run: npm playwright install --with-deps
+
+            #B5 chay test
+          - name: Run playwright test
+            run: npx playwright test
+        
