@@ -7,7 +7,8 @@ name: CI - chay test
 on:
     push:
         branches: [main,master]
-
+    pull_request:
+        branches: [main,master]
 jobs: 
     test: #define step test
         #chon moi truong de chay step test
