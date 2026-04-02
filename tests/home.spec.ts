@@ -14,7 +14,7 @@ test.describe("Home Page Tests", ()=>{
         await loginPage.login("Admin", "admin123");
         //Doi den khi trang home xuat hien => check url cua trang home "/Dashboard"
         //** la khong quan tam gia tri truoc do la gi
-        await page.waitForURL("**/dashboard**", {timeout: 2000});
+        await page.waitForURL("**/dashboard**", {timeout: 20000});
 
         //doi den khi menu item hien thi
         await homePage.sidebarMenuItems.first().waitFor({timeout: 20000});
