@@ -15,14 +15,15 @@
     "test:home": "playwright test tests/home.spec.ts --project=chromium --headed",
     "test:MyInfo": "playwright test tests/myinfo.spec.ts --project=chromium --headed",
     "test:mobileLogin": "playwright test tests/mobileLoginTest.spec.ts --project=chromium --headed",
-    "test:getByRole": "playwright test tests/getByRole.spec.ts --project=chromium --headed"
+    "test:getByRole": "playwright test tests/getByRole.spec.ts --project=chromium --headed",
+    "test:admin": "playwright test tests/admin.spec.ts --project=chromium --headed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.57.0",
-    "@types/node": "^25.0.3"
+    "@types/node": "^25.6.0"
   },
   "dependencies": {
     "csv-parse": "^6.1.0"

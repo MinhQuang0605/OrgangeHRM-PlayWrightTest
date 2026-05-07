@@ -58,4 +58,21 @@ export class HomePage{
              }
         }
     }
+     async clickItemOnMenu(Itemname: String): Promise<void>{
+               // await this.page.getByRole("link", { name: "My Info" }).click();
+        const count = await this.sidebarMenuNames.count();
+        //duyet tung menu name neu tim thay My Info thi click va ket thuc vong lap
+        for(let i=0; i< count; i++){
+        const name = await this.sidebarMenuNames.nth(i).textContent();
+        if(name === Itemname ){
+            //tim the a
+            // let link = this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a');
+           // console.log("Xpath link: " + link);
+               await this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a').click();
+           // await this.sidebarMenuItems.nth(i).click();
+           // this.page.waitForTimeout(2000);
+            return;
+             }
+        }
+    }
 }
