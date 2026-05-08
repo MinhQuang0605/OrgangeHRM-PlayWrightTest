@@ -4,20 +4,29 @@ export class AdminPage {
     readonly page: Page;
 
     //locator
+    //    await page.locator(".oxd-select-text-input").nth(0).click();
+    //     await page.locator("//div[@role='option']//span[text()='Admin']").click();
     readonly UsernameField: Locator;
-    readonly searchButton: Locator
-    readonly RecordsCards: Locator
+    readonly searchButton: Locator;
+    readonly RecordsCards: Locator;
+    readonly dataRows: Locator;
+    readonly UserRoleMenu: Locator;
+    readonly AdminRole: Locator;
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
         this.UsernameField = page.locator("//label[text()='Username']/following::input[1]")
-        this.searchButton = page.locator('.oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space')
+        this.searchButton = page.locator("//button[@type='submit']")
         this.RecordsCards = page.locator('.oxd-table-card')
+        this.dataRows = page.locator(".oxd-table-card")
+        this.UserRoleMenu = page.locator(".oxd-select-text-input").nth(0)
+        this.AdminRole = page.locator("//div[@role='option']//span[text()='Admin']")
     }
     async fillUserName(username: string): Promise<void> {
-        this.UsernameField.isVisible
+        this.UsernameField.isVisible()
         await this.UsernameField.fill(username);
-        this.searchButton.click
+        await this.searchButton.isVisible()
+        this.searchButton.click()
     }
 
     async employeeRow(name: string): Promise<boolean> {
@@ -30,7 +39,28 @@ export class AdminPage {
             console.log("Name:", name + " Have not been found")
             return false
         }
+    }
+    async searchResult(): Promise<boolean> {
+        await this.dataRows.first().waitFor()
+        const count = await this.dataRows.count();
+        console.log("Number of records: ", count)
+        return count > 0;
+    }
 
+    async clickAdminDropdown(): Promise<void> {
+        await this.UserRoleMenu.isVisible()
+        this.UserRoleMenu.click()
+        this.page.waitForTimeout(1000)
+        this.AdminRole.click()
+    }
+    async clickSearchButton(): Promise<void> {
+        await this.searchButton.isVisible()
+        this.searchButton.click()
+    }
+    async getSearchResultCount(): Promise<number> {
+        const count = await this.dataRows.count();
+        console.log("Number of records: ", count)
+        return await this.dataRows.count();
     }
 }
 //<input data-v-1f99f73c="" class="oxd-input oxd-input--active">
