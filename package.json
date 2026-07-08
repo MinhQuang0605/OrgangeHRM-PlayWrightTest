@@ -16,7 +16,8 @@
     "test:MyInfo": "playwright test tests/myinfo.spec.ts --project=chromium --headed",
     "test:mobileLogin": "playwright test tests/mobileLoginTest.spec.ts --project=chromium --headed",
     "test:getByRole": "playwright test tests/getByRole.spec.ts --project=chromium --headed",
-    "test:admin": "playwright test tests/admin.spec.ts --project=chromium --headed"
+    "test:admin": "playwright test tests/admin.spec.ts --project=chromium --headed",
+    "test:claim": "playwright test tests/claim.spec.ts --project=chromium --headed"
   },
   "keywords": [],
   "author": "",

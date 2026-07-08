@@ -16,17 +16,19 @@ export class AdminPage {
     constructor(page: Page) {
         this.page = page;
         this.UsernameField = page.locator("//label[text()='Username']/following::input[1]")
+        //this.searchButton = page.locator('button[type="submit"]');
         this.searchButton = page.locator("//button[@type='submit']")
         this.RecordsCards = page.locator('.oxd-table-card')
         this.dataRows = page.locator(".oxd-table-card")
         this.UserRoleMenu = page.locator(".oxd-select-text-input").nth(0)
         this.AdminRole = page.locator("//div[@role='option']//span[text()='Admin']")
+        //this.notifications = page.locator(".oxd-table-")
     }
     async fillUserName(username: string): Promise<void> {
-        this.UsernameField.isVisible()
+        await this.UsernameField.isVisible()
         await this.UsernameField.fill(username);
         await this.searchButton.isVisible()
-        this.searchButton.click()
+        await this.searchButton.click()
     }
 
     async employeeRow(name: string): Promise<boolean> {
@@ -50,7 +52,7 @@ export class AdminPage {
     async clickAdminDropdown(): Promise<void> {
         await this.UserRoleMenu.isVisible()
         this.UserRoleMenu.click()
-        this.page.waitForTimeout(1000)
+        await this.AdminRole.isVisible()
         this.AdminRole.click()
     }
     async clickSearchButton(): Promise<void> {
@@ -63,4 +65,18 @@ export class AdminPage {
         return await this.dataRows.count();
     }
 }
+// await page.locator(".dropdown").click();
+
+// const options = page.locator(".dropdown-option");
+
+// const count = await options.count();
+
+// for (let i = 0; i < count; i++) {
+//     const text = await options.nth(i).textContent();
+
+//     if (text?.trim() === "Admin") {
+//         await options.nth(i).click();
+//         break;
+//     }
+// }
 //<input data-v-1f99f73c="" class="oxd-input oxd-input--active">

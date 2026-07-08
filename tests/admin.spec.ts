@@ -11,7 +11,7 @@ test.describe("Admin Page test", () => {
         const homePage = new HomePage(page);
         await homePage.sidebarMenuNames.first().waitFor({ state: 'visible', timeout: 10000 });
         await homePage.clickItemOnMenu("Admin");
-        await page.waitForTimeout(2000)
+        await page.waitForURL("**/viewSystemUsers", { timeout: 10000 })
     });
 
     test("Fill Username with valid value ", async ({ page }) => {
@@ -20,7 +20,7 @@ test.describe("Admin Page test", () => {
         adminPage.fillUserName(value);
         //await page.getByPlaceholder('Type for hints...').fill('manda')
         //  expect(adminPage.employeeRow(value)).toBeTruthy
-         await page.waitForTimeout(2000)
+        await adminPage.dataRows.first().waitFor({ state: 'visible', timeout: 10000 })
         expect(await adminPage.searchResult()).toBeTruthy()
         await page.waitForTimeout(1000)
     })
@@ -30,26 +30,29 @@ test.describe("Admin Page test", () => {
         adminPage.fillUserName(value);
         //await page.getByPlaceholder('Type for hints...').fill('manda')
         // expect(adminPage.employeeRow(value)).toBeTruthy
-        await page.waitForTimeout(3000)
+        await page.waitForTimeout(1000)
+        // await page.pause();
         expect(await adminPage.getSearchResultCount()).toBe(0)
         await page.waitForTimeout(1000)
     })
     test("Find admin role user ", async ({ page }) => {
         const adminPage = new AdminPage(page)
+        await page.waitForTimeout(1000)
         adminPage.clickAdminDropdown()
         await page.waitForTimeout(2000)
         adminPage.clickSearchButton()
-        await page.waitForTimeout(2000)
+        await adminPage.dataRows.first().waitFor({ state: 'visible', timeout: 10000 })
         expect(await adminPage.searchResult()).toBeTruthy()
         await page.waitForTimeout(2000)
     })
-     test("Find admin role user and with invalid username ", async ({ page }) => {
+    test("Find admin role user and with invalid username ", async ({ page }) => {
         const adminPage = new AdminPage(page)
         let value = "admin123"
+        await page.waitForTimeout(1000)
         adminPage.clickAdminDropdown()
         await page.waitForTimeout(1000)
         adminPage.fillUserName(value)
-        await page.waitForTimeout(5000)
+        await page.waitForTimeout(1000)
         expect(await adminPage.getSearchResultCount()).toBe(0)
         await page.waitForTimeout(2000)
     })

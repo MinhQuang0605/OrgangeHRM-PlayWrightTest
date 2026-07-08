@@ -5,16 +5,16 @@
 //     private final By dashboardTitle = By.cssSelector(".oxd-topbar-header-breadcrumb-module");
 //     private final By sidebarPanel = By.cssSelector(".oxd-sidepanel");
 //     private final By headerMenu = By.cssSelector(".oxd-topbar-header");
-import {Page, Locator} from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 
-export class HomePage{
+export class HomePage {
     readonly page: Page;
 
     //Locator
     readonly sidebarMenuItems: Locator;
     readonly sidebarMenuNames: Locator;
 
-    constructor(page:Page){
+    constructor(page: Page) {
         this.page = page;
         this.sidebarMenuItems = page.locator(".oxd-main-menu-item-wrapper a.oxd-main-menu-item");
         this.sidebarMenuNames = page.locator(".oxd-main-menu-item-wrapper span.oxd-main-menu-item--name");
@@ -27,13 +27,13 @@ export class HomePage{
         const count = await this.sidebarMenuNames.count();
         //tao bien luu cac menu names
         const menuNames: string[] = [];
- 
+
 
         //B3 lap qua tung locator de lay tezt
-        for(let i=0; i< count; i++){
+        for (let i = 0; i < count; i++) {
             //lay locator thu i => nth(i).textContent()
             const name = await this.sidebarMenuNames.nth(i).textContent();
-            if(name){
+            if (name) {
                 //do typescript khong biet name co null hay khong nen can kiem tra
                 menuNames.push(name);
             }
@@ -41,38 +41,39 @@ export class HomePage{
         return menuNames;
     }
 
-    async clickMyInfoMenu(): Promise<void>{
-               // await this.page.getByRole("link", { name: "My Info" }).click();
+    async clickMyInfoMenu(): Promise<void> {
+        // await this.page.getByRole("link", { name: "My Info" }).click();
+    //    await this.sidebarMenuItems.isVisible()
         const count = await this.sidebarMenuNames.count();
         //duyet tung menu name neu tim thay My Info thi click va ket thuc vong lap
-        for(let i=0; i< count; i++){
-        const name = await this.sidebarMenuNames.nth(i).textContent();
-        if(name === "My Info"){
-            //tim the a
-            // let link = this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a');
-           // console.log("Xpath link: " + link);
-               await this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a').click();
-           // await this.sidebarMenuItems.nth(i).click();
-           // this.page.waitForTimeout(2000);
-            return;
-             }
+        for (let i = 0; i < count; i++) {
+            const name = await this.sidebarMenuNames.nth(i).textContent();
+            if (name === "My Info") {
+                //tim the a
+                // let link = this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a');
+                // console.log("Xpath link: " + link);
+                await this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a').click();
+                // await this.sidebarMenuItems.nth(i).click();
+                // this.page.waitForTimeout(2000);
+                return;
+            }
         }
     }
-     async clickItemOnMenu(Itemname: String): Promise<void>{
-               // await this.page.getByRole("link", { name: "My Info" }).click();
+    async clickItemOnMenu(Itemname: String): Promise<void> {
+        // await this.page.getByRole("link", { name: "My Info" }).click();
         const count = await this.sidebarMenuNames.count();
         //duyet tung menu name neu tim thay My Info thi click va ket thuc vong lap
-        for(let i=0; i< count; i++){
-        const name = await this.sidebarMenuNames.nth(i).textContent();
-        if(name === Itemname ){
-            //tim the a
-            // let link = this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a');
-           // console.log("Xpath link: " + link);
-               await this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a').click();
-           // await this.sidebarMenuItems.nth(i).click();
-           // this.page.waitForTimeout(2000);
-            return;
-             }
+        for (let i = 0; i < count; i++) {
+            const name = await this.sidebarMenuNames.nth(i).textContent();
+            if (name === Itemname) {
+                //tim the a
+                // let link = this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a');
+                // console.log("Xpath link: " + link);
+                await this.sidebarMenuNames.nth(i).locator('xpath=./ancestor::a').click();
+                // await this.sidebarMenuItems.nth(i).click();
+                // this.page.waitForTimeout(2000);
+                return;
+            }
         }
     }
 }
