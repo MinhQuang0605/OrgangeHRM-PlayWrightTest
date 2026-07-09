@@ -1,5 +1,5 @@
 import {test, expect} from '@playwright/test';
-import {LoginPage} from '../pages/LoginPage.ts';
+import {LoginPage} from '../pages/LoginPage';
 
 //describe: tao cum test case
 test.describe("Mobile Login Tests", ()=>{

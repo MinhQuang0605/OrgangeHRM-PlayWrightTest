@@ -12,16 +12,22 @@ export class AdminPage {
     readonly dataRows: Locator;
     readonly UserRoleMenu: Locator;
     readonly AdminRole: Locator;
+    readonly toast: Locator;
+    readonly ErrorMessageResult: Locator;
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
         this.UsernameField = page.locator("//label[text()='Username']/following::input[1]")
         //this.searchButton = page.locator('button[type="submit"]');
-        this.searchButton = page.locator("//button[@type='submit']")
+        this.searchButton = page.getByRole("button", { name: 'Search' })
         this.RecordsCards = page.locator('.oxd-table-card')
         this.dataRows = page.locator(".oxd-table-card")
         this.UserRoleMenu = page.locator(".oxd-select-text-input").nth(0)
         this.AdminRole = page.locator("//div[@role='option']//span[text()='Admin']")
+        this.toast = page.locator('.oxd-toast')
+        this.ErrorMessageResult= this.toast.locator('.oxd-toast-message').first()
+        // this.ErrorMessageResult = this.toast.locator('.oxd-toast-content-text');
+        //this.ErrorMessageResult = page.getByRole('alert',{name:'No records Found'})
         //this.notifications = page.locator(".oxd-table-")
     }
     async fillUserName(username: string): Promise<void> {
@@ -51,17 +57,17 @@ export class AdminPage {
 
     async clickAdminDropdown(): Promise<void> {
         await this.UserRoleMenu.isVisible()
-        this.UserRoleMenu.click()
+        await this.UserRoleMenu.click()
         await this.AdminRole.isVisible()
-        this.AdminRole.click()
+        await this.AdminRole.click()
     }
     async clickSearchButton(): Promise<void> {
         await this.searchButton.isVisible()
-        this.searchButton.click()
+        await this.searchButton.click()
     }
     async getSearchResultCount(): Promise<number> {
         const count = await this.dataRows.count();
-        console.log("Number of records: ", count)
+        await console.log("Number of records: ", count)
         return await this.dataRows.count();
     }
 }
