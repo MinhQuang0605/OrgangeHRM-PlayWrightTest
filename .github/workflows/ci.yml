@@ -64,7 +64,7 @@ jobs:
               username: ${{ secrets.EMAIL_USERNAME }}
               password: ${{ secrets.EMAIL_PASSWORD }}
               subject: Playwright Test Results - ${{ job.status }}
-              to: duongminhquang0605@email.com
+              to: duongminhquang2k3@gmail.com
               from: GitHub Actions
               body: |
                 Playwright tests have finished.

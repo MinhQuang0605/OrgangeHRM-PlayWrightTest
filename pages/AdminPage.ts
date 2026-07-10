@@ -14,6 +14,7 @@ export class AdminPage {
     readonly AdminRole: Locator;
     readonly toast: Locator;
     readonly ErrorMessageResult: Locator;
+    readonly errorResult:Locator
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
@@ -26,6 +27,7 @@ export class AdminPage {
         this.AdminRole = page.locator("//div[@role='option']//span[text()='Admin']")
         this.toast = page.locator('.oxd-toast')
         this.ErrorMessageResult= this.toast.locator('.oxd-toast-message').first()
+        this.errorResult= page.locator('oxd-input-field-error-message').getByText('invalid')
         // this.ErrorMessageResult = this.toast.locator('.oxd-toast-content-text');
         //this.ErrorMessageResult = page.getByRole('alert',{name:'No records Found'})
         //this.notifications = page.locator(".oxd-table-")

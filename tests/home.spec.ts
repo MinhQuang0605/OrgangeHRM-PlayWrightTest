@@ -30,7 +30,7 @@ test.describe("Home Page Tests", ()=>{
         //menu item co chua cac gia tri mong muon
         expect(menuItems).toContain("Admin");
 
-        homePage.clickMyInfoMenu();
+        await homePage.clickMyInfoMenu();
         
     });
 });
