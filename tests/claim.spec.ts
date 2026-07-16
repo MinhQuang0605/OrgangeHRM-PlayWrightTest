@@ -5,7 +5,7 @@ import { LoginPage } from "../pages/LoginPage";
 test.describe("Assign Claim", () => {
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);
-        await loginPage.login("Admin", "admin123")
+        await loginPage.adminLogin()
         await page.waitForURL("**/dashboard/**", { timeout: 20000 })
         await page.waitForTimeout(5000)
         const homePage = new HomePage(page);

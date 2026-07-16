@@ -1,6 +1,7 @@
 import {Page, Locator} from '@playwright/test';
 import { hightlightAndScreenshot } from '../utils/screenshot';
-
+import dotenv from 'dotenv';
+import { env } from "../config/env";
 export class LoginPage{
     //locator
 
@@ -68,12 +69,26 @@ export class LoginPage{
     async login(username: string, password: string): Promise<void> {
         //B1: Navigate vao login page
         await this.page.waitForTimeout(3000);
-        await this.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        await this.page.goto(env.BASE_URL);
 
         //B2: fill username vao input
         await this.usernameInput.fill(username);
         //B3: fill password vao input
         await this.passwordInput.fill(password);
+  
+        //B4: click login button
+        await this.loginButton.click();
+
+    }
+       async adminLogin(): Promise<void> {
+        //B1: Navigate vao login page
+        await this.page.waitForTimeout(3000);
+        await this.page.goto(env.BASE_URL);
+
+        //B2: fill username vao input
+        await this.usernameInput.fill(env.ADMIN_USER);
+        //B3: fill password vao input
+        await this.passwordInput.fill(env.ADMIN_PASSWORD);
   
         //B4: click login button
         await this.loginButton.click();

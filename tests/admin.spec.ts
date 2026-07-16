@@ -8,7 +8,7 @@ import process from 'node:process'
 test.describe("Admin Page test", () => {
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);
-        await loginPage.login("Admin", "admin123");
+        await loginPage.adminLogin()
         await page.waitForURL("**/dashboard/**", { timeout: 10000 })
         const homePage = new HomePage(page);
         await homePage.sidebarMenuNames.first().waitFor({ state: 'visible', timeout: 10000 });

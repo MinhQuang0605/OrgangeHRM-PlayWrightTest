@@ -11,7 +11,7 @@ test.describe("Home Page Tests", ()=>{
         const loginPage = new LoginPage(page);
         const homePage = new HomePage(page);
         //Login
-        await loginPage.login("Admin", "admin123");
+        await loginPage.adminLogin()
         //Doi den khi trang home xuat hien => check url cua trang home "/Dashboard"
         //** la khong quan tam gia tri truoc do la gi
         await page.waitForURL("**/dashboard**", {timeout: 20000});

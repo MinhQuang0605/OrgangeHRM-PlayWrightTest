@@ -10,7 +10,7 @@ test.describe("My Info Page Tests", ()=>{
     const homePage = new HomePage(page);
     const myInfoPage = new MyInfoPage(page);
 
-    await loginPage.login("Admin","admin123");
+    await loginPage.adminLogin()
 
     await page.waitForURL("**/dashboard**",{timeout:10000});
 
