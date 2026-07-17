@@ -13,11 +13,15 @@ export class HomePage {
     //Locator
     readonly sidebarMenuItems: Locator;
     readonly sidebarMenuNames: Locator;
+    readonly searchField:Locator;
+    readonly itemLabel:Locator
 
     constructor(page: Page) {
         this.page = page;
         this.sidebarMenuItems = page.locator(".oxd-main-menu-item-wrapper a.oxd-main-menu-item");
         this.sidebarMenuNames = page.locator(".oxd-main-menu-item-wrapper span.oxd-main-menu-item--name");
+        this.searchField = page.getByRole("textbox",{name:'Search'})
+        this.itemLabel = page.getByLabel("")
     }
 
     //Lay danh sach ten cac menu trong sidebar
@@ -75,5 +79,9 @@ export class HomePage {
                 return;
             }
         }
+    }
+    async searchItemOnMenu(ItemName:string):Promise<void>{
+        await this.searchField.isVisible()
+        await this.searchField.fill(ItemName)
     }
 }
