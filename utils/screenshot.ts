@@ -27,17 +27,17 @@ export async function hightlightAndScreenshot(
     //__dirname: thu muc hien tai cua file screenshot.ts
     // ..: tro ve thu muc cha utils
     const screenshotDir = join(__dirname, "..", "screenshot", folderName);
-    
+
 
     //B3 Tao folder
     mkdirSync(screenshotDir, { recursive: true });
 
     //B4: Hightlight element tren web
     await locator.evaluate((element) => {
-    //them vien do xung quanh element
-    (element as HTMLElement).style.outline = "4px solid red";
-    //Them background mau vang cho element
-    (element as HTMLElement).style.backgroundColor = "yellow";
+        //them vien do xung quanh element
+        (element as HTMLElement).style.outline = "4px solid red";
+        //Them background mau vang cho element
+        (element as HTMLElement).style.backgroundColor = "yellow";
     })
     await page.waitForTimeout(1000); //cho locator hien thi voi style moi
 
@@ -47,6 +47,23 @@ export async function hightlightAndScreenshot(
     //await locator.screenshot({ path: screenshotPath }); chi chup element
 
     //Xoa hightlight
+    await locator.evaluate((element) => {
+        (element as HTMLElement).style.outline = "";
+        (element as HTMLElement).style.backgroundColor = "";
+    })
+}
+
+export async function hightlightElement(
+    page: Page,
+    locator: Locator
+): Promise<void> {
+    await locator.evaluate((element) => {
+        //them vien do xung quanh element
+        (element as HTMLElement).style.outline = "4px solid red";
+        //Them background mau vang cho element
+        (element as HTMLElement).style.backgroundColor = "yellow";
+    })
+    await page.waitForTimeout(1000);
     await locator.evaluate((element) => {
         (element as HTMLElement).style.outline = "";
         (element as HTMLElement).style.backgroundColor = "";

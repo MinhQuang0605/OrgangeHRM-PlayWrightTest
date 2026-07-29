@@ -1,8 +1,8 @@
-import {Page, Locator} from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { hightlightAndScreenshot } from '../utils/screenshot';
 import dotenv from 'dotenv';
 import { env } from "../config/env";
-export class LoginPage{
+export class LoginPage {
     //locator
 
     readonly page: Page; //Page object giup tuong tac voi trinh duyet
@@ -11,7 +11,7 @@ export class LoginPage{
     readonly loginButton: Locator;
     readonly homeTitle: Locator; //verify login thanh cong
 
-    constructor(page:Page){
+    constructor(page: Page) {
         this.page = page;
         this.usernameInput = page.locator('input[name="username"]');
         this.passwordInput = page.locator('input[name="password"]');
@@ -35,7 +35,7 @@ export class LoginPage{
         )
         //B3: fill password vao input
         await this.passwordInput.fill(password);
-  
+
         await hightlightAndScreenshot(
             this.page,
             this.passwordInput,
@@ -75,21 +75,28 @@ export class LoginPage{
         await this.usernameInput.fill(username);
         //B3: fill password vao input
         await this.passwordInput.fill(password);
-  
+
         //B4: click login button
         await this.loginButton.click();
 
     }
-       async adminLogin(): Promise<void> {
+    async adminLogin(): Promise<void> {
         //B1: Navigate vao login page
         await this.page.waitForTimeout(3000);
-        await this.page.goto(env.BASE_URL);
-
+        //await this.page.goto(env.BASE_URL);
+        try {
+            await this.page.goto(env.BASE_URL, {
+                waitUntil: 'load',
+                timeout: 60000,
+            });
+        } catch (e) {
+            console.error(e);
+        }
         //B2: fill username vao input
         await this.usernameInput.fill(env.ADMIN_USER);
         //B3: fill password vao input
         await this.passwordInput.fill(env.ADMIN_PASSWORD);
-  
+
         //B4: click login button
         await this.loginButton.click();
 
@@ -97,15 +104,15 @@ export class LoginPage{
     //function: login, validate
 
     async isLoginSuccessful(): Promise<boolean> {
-       // await this.page.waitForTimeout(3000);
+        // await this.page.waitForTimeout(3000);
         //case 1: test URl co /dashboard hay khong
-        try{
-            await this.page.waitForURL(/.*dashboard/, {timeout: 10000});
+        try {
+            await this.page.waitForURL(/.*dashboard/, { timeout: 10000 });
             return true;
-        }catch(e){
+        } catch (e) {
             return false;
         }
     }
 
-    
+
 }

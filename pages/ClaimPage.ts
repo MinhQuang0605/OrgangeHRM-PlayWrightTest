@@ -8,7 +8,9 @@ export class ClaimPage {
     readonly searchButton: Locator
     readonly employeeTextBox: Locator
     readonly errorResult: Locator;
-    readonly recordCards:Locator
+    readonly recordCards: Locator;
+    readonly eventNameComboBox: Locator;
+    readonly travelAllowance: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -19,6 +21,8 @@ export class ClaimPage {
         this.employeeTextBox = page.getByRole('textbox', { name: "Type for hints..." }).nth(0)
         this.errorResult = page.locator('oxd-input-field-error-message').getByText('invalid')
         this.recordCards = page.locator(".oxd-table-card")
+        this.eventNameComboBox = page.locator('.oxd-select-text').nth(0)
+        this.travelAllowance = page.getByRole('option', { name: 'Travel Allowance' })
     }
 
     async filldate(beginDate: string): Promise<void> {
@@ -33,11 +37,26 @@ export class ClaimPage {
         await this.employeeTextBox.isVisible()
         await this.employeeTextBox.fill(employeeName)
     }
-     async searchResult(): Promise<boolean> {
+
+    async clickComboBox() {
+        await this.eventNameComboBox.isVisible()
+        await this.eventNameComboBox.click()
+        await this.travelAllowance.isVisible()
+        await this.travelAllowance.click()
+    }
+    async searchResult(): Promise<boolean> {
+        // await this.recordCards.isVisible()
         await this.recordCards.first().waitFor()
         const count = await this.recordCards.count();
         console.log("Number of records: ", count)
         return count > 0;
+    }
+
+    async clickDropDown(option: string): Promise<void> {
+        await this.eventNameComboBox.isVisible()
+        await this.eventNameComboBox.click()
+        await this.page.getByRole('option', { name: option }).click()
+
     }
     // async searchResult(): Promise<boolean>{
     //     await this.searchResult.first().waitFor()

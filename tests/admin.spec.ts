@@ -45,7 +45,6 @@ test.describe("Admin Page test", () => {
     test("Find admin role user ", async ({ page }) => {
         test.skip(!!process.env.PWDEBUG, "Skip while debugging");
         const adminPage = new AdminPage(page)
-        await page.waitForTimeout(1000)
         await adminPage.clickAdminDropdown()
         await page.waitForTimeout(2000)
         //await adminPage.clickSearchButton()
@@ -56,9 +55,7 @@ test.describe("Admin Page test", () => {
     test("Find admin role user and with invalid username ", async ({ page }) => {
         const adminPage = new AdminPage(page)
         let value = "admin123"
-        await page.waitForTimeout(1000)
         await adminPage.clickAdminDropdown()
-        await page.waitForTimeout(1000)
         await adminPage.fillUserName(value)
         await page.waitForTimeout(1000)
         expect(await adminPage.ErrorMessageResult).toBeTruthy()

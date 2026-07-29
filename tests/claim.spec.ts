@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { ClaimPage } from "../pages/ClaimPage";
 import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
+
 test.describe("Assign Claim", () => {
     test.beforeEach(async ({ page }) => {
         const loginPage = new LoginPage(page);
@@ -18,6 +19,7 @@ test.describe("Assign Claim", () => {
         //format yyyy-dd-mm
         await claimPage.filldate("2026-02-11")
         await claimPage.fillEmployeeTextBox("John Smith")
+        await claimPage.clickDropDown("Accommodation")
         await claimPage.clickSearchButton()
         expect(claimPage.errorResult.isVisible()).toBeTruthy()
         await page.waitForTimeout(5000)

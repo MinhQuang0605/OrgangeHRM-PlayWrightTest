@@ -2,6 +2,7 @@ import { test,expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
 import { HomePage } from "../pages/HomePage";
 import { MyInfoPage } from "../pages/MyInfoPage";
+import { randomProfileGenerate } from "../utils/faker";
 
 test.describe("My Info Page Tests", ()=>{
     test.beforeEach(async ({ page })=>{
@@ -29,5 +30,12 @@ test.describe("My Info Page Tests", ()=>{
         await myInfoPage.uploadAvatar();
 
         expect(true).toBeTruthy();
+    })
+
+    test("Change User Name",async ({page})=>{
+        const myInfoPage = new MyInfoPage(page);
+        const user=randomProfileGenerate()
+        await myInfoPage.FillRandomFullName(user)
+        expect (await myInfoPage.checkChangedName(user)).toBeTruthy()
     })
 });

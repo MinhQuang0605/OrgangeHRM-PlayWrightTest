@@ -25,12 +25,20 @@ test.describe("Home Page Tests", ()=>{
 
         const menuItems = await homePage.getSideBarMenuItems();
         console.log("Sidebar Menu Items: ", menuItems);
+      //  homePage.getQuickLauchButton()
         //Kiem tra menuitem >0 khong
         expect(menuItems.length).toBeGreaterThan(0);
         //menu item co chua cac gia tri mong muon
         expect(menuItems).toContain("Admin");
-
-        await homePage.clickMyInfoMenu();
+        
+        await homePage.clickQuickLauchButton("Leave List")
+      //  await homePage.clickMyInfoMenu();
         
     });
+    test("Verify Quick Lauch Button", async({page})=>{
+      const homePage = new HomePage(page);
+      const menuButtons=await homePage.getQuickLaunchButton();
+      console.log("Number of buttons: ", menuButtons);
+      expect(menuButtons.length).toBeGreaterThan(0)
+    })
 });

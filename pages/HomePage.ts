@@ -13,15 +13,17 @@ export class HomePage {
     //Locator
     readonly sidebarMenuItems: Locator;
     readonly sidebarMenuNames: Locator;
-    readonly searchField:Locator;
-    readonly itemLabel:Locator
+    readonly searchField: Locator;
+    readonly itemLabel: Locator;
+    readonly quickLauchButton: Locator;
 
     constructor(page: Page) {
         this.page = page;
         this.sidebarMenuItems = page.locator(".oxd-main-menu-item-wrapper a.oxd-main-menu-item");
         this.sidebarMenuNames = page.locator(".oxd-main-menu-item-wrapper span.oxd-main-menu-item--name");
-        this.searchField = page.getByRole("textbox",{name:'Search'})
+        this.searchField = page.getByRole("textbox", { name: 'Search' })
         this.itemLabel = page.getByLabel("")
+        this.quickLauchButton = page.locator(".orangehrm-quick-launch-icon")
     }
 
     //Lay danh sach ten cac menu trong sidebar
@@ -45,9 +47,34 @@ export class HomePage {
         return menuNames;
     }
 
+   async getQuickLaunchButton(): Promise<string[]> {
+    await this.quickLauchButton.first().waitFor({state:'visible'})
+    const count = await this.quickLauchButton.count();
+    const buttonName: string[] = [];
+
+    for (let i = 0; i < count; i++) {
+        const title = await this.quickLauchButton.nth(i).getAttribute("title");
+        if (title) {
+            buttonName.push(title);
+        }
+    }
+   // console.log(buttonName)
+    return buttonName;
+}
+
+    async clickQuickLauchButton(buttonName:string):Promise<void>{
+        const count= await this.quickLauchButton.count();
+        for(let i=0;i<count;i++){
+            const title = await this.quickLauchButton.nth(i).getAttribute("title");
+            if(title === buttonName){
+                await this.quickLauchButton.nth(i).click()
+                return;
+            }
+        }
+    }
     async clickMyInfoMenu(): Promise<void> {
         // await this.page.getByRole("link", { name: "My Info" }).click();
-    //    await this.sidebarMenuItems.isVisible()
+        //    await this.sidebarMenuItems.isVisible()
         const count = await this.sidebarMenuNames.count();
         //duyet tung menu name neu tim thay My Info thi click va ket thuc vong lap
         for (let i = 0; i < count; i++) {
@@ -80,7 +107,7 @@ export class HomePage {
             }
         }
     }
-    async searchItemOnMenu(ItemName:string):Promise<void>{
+    async searchItemOnMenu(ItemName: string): Promise<void> {
         await this.searchField.isVisible()
         await this.searchField.fill(ItemName)
     }
