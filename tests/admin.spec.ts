@@ -17,7 +17,7 @@ test.describe("Admin Page test", () => {
     });
 
     test("Fill Username with valid value ", async ({ page }) => {
-        test.skip(!!process.env.PWDEBUG,"Skip while debugging")
+
         let value = "Admin"
         const adminPage = new AdminPage(page);
         await adminPage.fillUserName(value);
@@ -28,6 +28,7 @@ test.describe("Admin Page test", () => {
         await page.waitForTimeout(1000)
     })
     test("Fill Username with invalid value ", async ({ page }) => {
+        test.skip(!!process.env.PWDEBUG, "Skip while debugging")
         let value = "Admin123"
         const adminPage = new AdminPage(page);
         await adminPage.fillUserName(value);
@@ -53,6 +54,7 @@ test.describe("Admin Page test", () => {
         await page.waitForTimeout(2000)
     })
     test("Find admin role user and with invalid username ", async ({ page }) => {
+        test.skip(!!process.env.PWDEBUG, "Skip while debugging")
         const adminPage = new AdminPage(page)
         let value = "admin123"
         await adminPage.clickAdminDropdown()

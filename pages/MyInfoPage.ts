@@ -18,6 +18,7 @@ export class MyInfoPage {
     readonly middleNameTextBox: Locator
     readonly saveButton: Locator
     readonly fullNameText: Locator
+    readonly loadingSpinner: Locator
 
     constructor(page: Page) {
         this.page = page;
@@ -29,6 +30,7 @@ export class MyInfoPage {
         this.middleNameTextBox = page.locator(".orangehrm-middlename")
         this.saveButton = page.getByRole('button', { name: 'save' }).nth(0)
         this.fullNameText = page.locator("h6.oxd-text--h6.--strong");
+        this.loadingSpinner = page.locator(".oxd-loading-spinner-container").first()
     }
 
     //handle upload avatar
@@ -54,6 +56,8 @@ export class MyInfoPage {
     }
     async FillRandomFullName(user: UserProfile): Promise<void> {
         await this.page.waitForTimeout(3000);
+        await this.loadingSpinner.waitFor({ state: 'visible' });
+        await this.loadingSpinner.waitFor({ state: 'hidden' });
         await this.firstNameTextBox.isVisible()
         await this.middleNameTextBox.isVisible()
         await this.lastNameTextBox.isVisible()
@@ -72,10 +76,12 @@ export class MyInfoPage {
 
     async checkChangedName(user: UserProfile): Promise<boolean> {
         await this.page.reload()
+        await this.loadingSpinner.waitFor({ state: 'visible' });
+        await this.loadingSpinner.waitFor({ state: 'hidden' });
         await this.page.waitForTimeout(3000);
         await this.fullNameText.waitFor({ state: "visible" });
         const fullName = user.firstName + " " + user.lastName;
-        const trueFullName = user.firstName +" " + user.middleName +" " + user.lastName
+        const trueFullName = user.firstName + " " + user.middleName + " " + user.lastName
         // await this.firstNameTextBox.isVisible()
         // await this.middleNameTextBox.isVisible()
         // await this.lastNameTextBox.isVisible()

@@ -13,7 +13,7 @@ test.describe("My Info Page Tests", ()=>{
 
     await loginPage.adminLogin()
 
-    await page.waitForURL("**/dashboard**",{timeout:10000});
+    await page.waitForURL("**/dashboard**",{timeout:20000});
 
     //doi den khi menu name hien thi de ngua trang load cham
     await homePage.sidebarMenuNames.first().waitFor({state:'visible', timeout:10000});

@@ -14,7 +14,8 @@ export class AdminPage {
     readonly AdminRole: Locator;
     readonly toast: Locator;
     readonly ErrorMessageResult: Locator;
-    readonly errorResult:Locator
+    readonly errorResult: Locator
+    readonly loadingSpinner: Locator
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
@@ -26,8 +27,9 @@ export class AdminPage {
         this.UserRoleMenu = page.locator(".oxd-select-text-input").nth(0)
         this.AdminRole = page.locator("//div[@role='option']//span[text()='Admin']")
         this.toast = page.locator('.oxd-toast')
-        this.ErrorMessageResult= this.toast.locator('.oxd-toast-message').first()
-        this.errorResult= page.locator('oxd-input-field-error-message').getByText('invalid')
+        this.ErrorMessageResult = this.toast.locator('.oxd-toast-message').first()
+        this.errorResult = page.locator('oxd-input-field-error-message').getByText('invalid')
+        this.loadingSpinner = page.locator(".oxd-loading-spinner-container").first()
         // this.ErrorMessageResult = this.toast.locator('.oxd-toast-content-text');
         //this.ErrorMessageResult = page.getByRole('alert',{name:'No records Found'})
         //this.notifications = page.locator(".oxd-table-")
@@ -51,6 +53,7 @@ export class AdminPage {
         }
     }
     async searchResult(): Promise<boolean> {
+        await this.loadingSpinner.waitFor({ state: 'hidden' });
         await this.dataRows.first().waitFor()
         const count = await this.dataRows.count();
         console.log("Number of records: ", count)
@@ -68,6 +71,7 @@ export class AdminPage {
         await this.searchButton.click()
     }
     async getSearchResultCount(): Promise<number> {
+        await this.loadingSpinner.waitFor({ state: 'hidden' });
         const count = await this.dataRows.count();
         await console.log("Number of records: ", count)
         return await this.dataRows.count();
