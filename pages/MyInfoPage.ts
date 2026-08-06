@@ -48,7 +48,7 @@ export class MyInfoPage {
 
         //chon hinh va upload hinh
         await this.fileInput.waitFor({ state: 'attached', timeout: 10000 });
-        const filePath = join(__dirname, "..", "data/pics", "TestFile.png")
+        const filePath = join(__dirname, "..", "data/pics", "TestFile3.png")
         await this.fileInput.setInputFiles(filePath);
         await this.page.waitForTimeout(5000);
 
@@ -78,17 +78,6 @@ export class MyInfoPage {
         await this.fullNameText.waitFor({ state: "visible" });
         const fullName = user.firstName + " " + user.lastName;
         const trueFullName = user.firstName + " " + user.middleName + " " + user.lastName
-        // await this.firstNameTextBox.isVisible()
-        // await this.middleNameTextBox.isVisible()
-        // await this.lastNameTextBox.isVisible()
-
-        // const firstName= this.firstNameTextBox.inputValue()
-        // const middleName = this.middleNameTextBox.inputValue()
-        // const lastName = this.lastNameTextBox.inputValue()
-
-        // console.log('Full name: ', firstName, middleName, lastName)
-        // if(user.firstName===await firstName && user.middleName === await middleName && user.lastName === await lastName)
-        //     return true
         const currentFullName = await this.fullNameText.textContent();
         console.log("Name intend to change", trueFullName)
         console.log("Current name on web page: ", currentFullName)

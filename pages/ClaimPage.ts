@@ -40,9 +40,9 @@ export class ClaimPage {
     }
 
     async fillEmployeeBySuggestion(employeeName: string) {
-        await this.employeeTextBox.isVisible()
+        await this.employeeTextBox.waitFor({state:'visible'})
         await this.employeeTextBox.fill(employeeName)
-        await this.page.waitForTimeout(2000)
+        await this.page.waitForTimeout(5000)
         await this.page.getByRole('option').first().click()
     }
     async clickComboBox() {
