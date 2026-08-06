@@ -56,15 +56,11 @@ export class MyInfoPage {
     }
     async FillRandomFullName(user: UserProfile): Promise<void> {
         await this.page.waitForTimeout(3000);
-        await this.loadingSpinner.waitFor({ state: 'visible' });
+       // await this.loadingSpinner.waitFor({ state: 'visible' });
         await this.loadingSpinner.waitFor({ state: 'hidden' });
-        await this.firstNameTextBox.isVisible()
-        await this.middleNameTextBox.isVisible()
-        await this.lastNameTextBox.isVisible()
-
-        // await hightlightElement(this.page ,this.firstNameTextBox)
-        // await hightlightElement(this.page ,this.middleNameTextBox)
-        // await hightlightElement(this.page ,this.firstNameTextBox)
+        await this.firstNameTextBox.waitFor({ state: 'visible' });
+        await this.middleNameTextBox.waitFor({state: 'visible'})
+        await this.lastNameTextBox.waitFor({state: 'visible'})
 
         await this.firstNameTextBox.fill(user.firstName)
         await this.middleNameTextBox.fill(user.middleName)

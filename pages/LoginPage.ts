@@ -82,7 +82,7 @@ export class LoginPage {
     }
     async adminLogin(): Promise<void> {
         //B1: Navigate vao login page
-        await this.page.waitForTimeout(3000);
+
         //await this.page.goto(env.BASE_URL);
         try {
             await this.page.goto(env.BASE_URL, {
@@ -92,6 +92,7 @@ export class LoginPage {
         } catch (e) {
             console.error(e);
         }
+        await this.page.waitForTimeout(3000);
         //B2: fill username vao input
         await this.usernameInput.fill(env.ADMIN_USER);
         //B3: fill password vao input

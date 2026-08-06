@@ -25,6 +25,7 @@ test.describe("My Info Page Tests", ()=>{
     });
 
     test("upload avatar", async ({page})=>{
+        test.skip(!!process.env.PWDEBUG,"Skip while debugging")
         const myInfoPage = new MyInfoPage(page);
         await myInfoPage.avatarWrapper.waitFor({state:'visible', timeout:10000});
         await myInfoPage.uploadAvatar();

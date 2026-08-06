@@ -17,20 +17,21 @@ export class ClaimPage {
         this.employeeClaimButton = page.getByText("Employee Claims")
         this.assignClaimButton = page.getByRole('link', { name: 'Assign Claim' })
         this.searchButton = page.getByRole('button', { name: 'Search' })
-        this.beginDateTime = page.getByRole('textbox', { name: "yyyy-dd-mm" }).nth(0)
+        this.beginDateTime = page.locator(".oxd-input.oxd-input--active").nth(1)
+     //   this.beginDateTime = page.getByRole('textbox', { name: "yyyy-mm-dd" }).nth(0)
         this.employeeTextBox = page.getByRole('textbox', { name: "Type for hints..." }).nth(0)
-        this.errorResult = page.locator('oxd-input-field-error-message').getByText('invalid')
+        this.errorResult = page.locator('.oxd-input-field-error-message').first()
         this.recordCards = page.locator(".oxd-table-card")
         this.eventNameComboBox = page.locator('.oxd-select-text').nth(0)
         this.travelAllowance = page.getByRole('option', { name: 'Travel Allowance' })
     }
 
     async filldate(beginDate: string): Promise<void> {
-        await this.beginDateTime.isVisible()
+        await this.beginDateTime.waitFor({state:'visible'})
         await this.beginDateTime.fill(beginDate)
     }
     async clickSearchButton() {
-        await this.searchButton.isVisible()
+        await this.searchButton.waitFor({state:'visible'})
         await this.searchButton.click()
     }
     async fillEmployeeTextBox(employeeName: string) {
@@ -38,22 +39,28 @@ export class ClaimPage {
         await this.employeeTextBox.fill(employeeName)
     }
 
+    async fillEmployeeBySuggestion(employeeName: string) {
+        await this.employeeTextBox.isVisible()
+        await this.employeeTextBox.fill(employeeName)
+        await this.page.waitForTimeout(2000)
+        await this.page.getByRole('option').first().click()
+    }
     async clickComboBox() {
-        await this.eventNameComboBox.isVisible()
+        await this.eventNameComboBox.waitFor({state:'visible'})
         await this.eventNameComboBox.click()
-        await this.travelAllowance.isVisible()
+        await this.travelAllowance.waitFor({state:'visible'})
         await this.travelAllowance.click()
     }
     async searchResult(): Promise<boolean> {
         // await this.recordCards.isVisible()
-        await this.recordCards.first().waitFor()
+        await this.recordCards.first().waitFor({state:'visible'})
         const count = await this.recordCards.count();
         console.log("Number of records: ", count)
         return count > 0;
     }
 
     async clickDropDown(option: string): Promise<void> {
-        await this.eventNameComboBox.isVisible()
+        await this.eventNameComboBox.waitFor({state:'visible'})
         await this.eventNameComboBox.click()
         await this.page.getByRole('option', { name: option }).click()
 
