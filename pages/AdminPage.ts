@@ -38,6 +38,7 @@ export class AdminPage {
         await this.UsernameField.isVisible()
         await this.UsernameField.fill(username);
         await this.searchButton.isVisible()
+       // await this.searchButton.press('Enter')
         await this.searchButton.click()
     }
 
