@@ -13,7 +13,7 @@ test.describe("Assign Claim", () => {
         await homePage.clickItemOnMenu("Claim")
         //await page.waitForURL("**/claim/**", {timeout:60000})
     })
-    test.skip("Find Invalid employee Claim", async ({ page }) => {
+    test("Find Invalid employee Claim", async ({ page }) => {
         const claimPage = new ClaimPage(page)
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm
@@ -29,7 +29,7 @@ test.describe("Assign Claim", () => {
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm
         // await claimPage.filldate("2026-02-11")
-        await claimPage.fillEmployeeBySuggestion("Shweta Parag Bedarkar")
+        await claimPage.fillEmployeeBySuggestion("Aileen")
         await claimPage.clickSearchButton()
         //await expect(claimPage.errorResult).not.toBeVisible();
         await expect(claimPage.errorResult).toBeHidden();
