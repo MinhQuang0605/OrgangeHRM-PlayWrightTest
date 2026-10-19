@@ -23,8 +23,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.57.0",
-    "@types/node": "^25.9.5"
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^25.9.5",
+    "allure-playwright": "^3.13.0"
   },
   "dependencies": {
     "@faker-js/faker": "^10.5.0",

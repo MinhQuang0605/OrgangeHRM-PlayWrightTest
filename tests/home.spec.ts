@@ -41,4 +41,8 @@ test.describe("Home Page Tests", ()=>{
       console.log("Number of buttons: ", menuButtons);
       expect(menuButtons.length).toBeGreaterThan(0)
     })
+    test("Click Side bar menu button",async({page})=>{
+      const homePage= new HomePage(page);
+     expect(homePage.verifySideBarMenuPath()).toBeTruthy()
+    })
 });

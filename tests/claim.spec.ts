@@ -17,9 +17,9 @@ test.describe("Assign Claim", () => {
         const claimPage = new ClaimPage(page)
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm
-        await claimPage.filldate("2026-02-11")
+      //  await claimPage.filldate("2026-02-11")
         await claimPage.fillEmployeeTextBox("John Smith")
-        await claimPage.clickDropDown("Accommodation")
+       //await claimPage.clickDropDown("Accommodation")
         await claimPage.clickSearchButton()
         expect(claimPage.errorResult).toBeVisible()
         await page.waitForTimeout(5000)
@@ -29,7 +29,7 @@ test.describe("Assign Claim", () => {
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm
         // await claimPage.filldate("2026-02-11")
-        await claimPage.fillEmployeeBySuggestion("Aileen")
+        await claimPage.fillEmployeeBySuggestion("Manda")
         await claimPage.clickSearchButton()
         //await expect(claimPage.errorResult).not.toBeVisible();
         await expect(claimPage.errorResult).toBeHidden();

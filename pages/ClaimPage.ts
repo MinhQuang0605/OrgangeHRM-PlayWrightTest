@@ -16,7 +16,7 @@ export class ClaimPage {
         this.page = page;
         this.employeeClaimButton = page.getByText("Employee Claims")
         this.assignClaimButton = page.getByRole('link', { name: 'Assign Claim' })
-        this.searchButton = page.getByRole('button', { name: 'Search' })
+        this.searchButton = page.locator('.oxd-button--medium.oxd-button--secondary.orangehrm-left-space')
         this.beginDateTime = page.locator(".oxd-input.oxd-input--active").nth(1)
      //   this.beginDateTime = page.getByRole('textbox', { name: "yyyy-mm-dd" }).nth(0)
         this.employeeTextBox = page.getByRole('textbox', { name: "Type for hints..." }).nth(0)
@@ -62,7 +62,7 @@ export class ClaimPage {
     async clickDropDown(option: string): Promise<void> {
         await this.eventNameComboBox.waitFor({state:'visible'})
         await this.eventNameComboBox.click()
-        await this.page.getByRole('option', { name: option }).click()
+        await this.page.getByRole('option', { name: 'accomodation' }).click()
 
     }
     // async searchResult(): Promise<boolean>{

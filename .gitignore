@@ -9,3 +9,4 @@ node_modules/
 screenshot/*
 .env
 utils/convertReportToPDF.ts
+allure-results/

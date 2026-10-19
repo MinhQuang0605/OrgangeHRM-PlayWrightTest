@@ -47,26 +47,26 @@ export class HomePage {
         return menuNames;
     }
 
-   async getQuickLaunchButton(): Promise<string[]> {
-    await this.quickLauchButton.first().waitFor({state:'visible'})
-    const count = await this.quickLauchButton.count();
-    const buttonName: string[] = [];
+    async getQuickLaunchButton(): Promise<string[]> {
+        await this.quickLauchButton.first().waitFor({ state: 'visible' })
+        const count = await this.quickLauchButton.count();
+        const buttonName: string[] = [];
 
-    for (let i = 0; i < count; i++) {
-        const title = await this.quickLauchButton.nth(i).getAttribute("title");
-        if (title) {
-            buttonName.push(title);
-        }
-    }
-   // console.log(buttonName)
-    return buttonName;
-}
-
-    async clickQuickLauchButton(buttonName:string):Promise<void>{
-        const count= await this.quickLauchButton.count();
-        for(let i=0;i<count;i++){
+        for (let i = 0; i < count; i++) {
             const title = await this.quickLauchButton.nth(i).getAttribute("title");
-            if(title === buttonName){
+            if (title) {
+                buttonName.push(title);
+            }
+        }
+        // console.log(buttonName)
+        return buttonName;
+    }
+
+    async clickQuickLauchButton(buttonName: string): Promise<void> {
+        const count = await this.quickLauchButton.count();
+        for (let i = 0; i < count; i++) {
+            const title = await this.quickLauchButton.nth(i).getAttribute("title");
+            if (title === buttonName) {
                 await this.quickLauchButton.nth(i).click()
                 return;
             }
@@ -111,4 +111,42 @@ export class HomePage {
         await this.searchField.isVisible()
         await this.searchField.fill(ItemName)
     }
+
+    async verifySideBarMenuPath(): Promise<boolean> {
+    const count = await this.sidebarMenuNames.count();
+    const menuNames: string[] = [];
+    //await this.page.waitForTimeout(3000);
+    // Capture all menu names before navigating
+    for (let i = 0; i < count; i++) {
+        const name = await this.sidebarMenuNames.nth(i).textContent();
+
+        if (!name?.trim()) {
+            return false;
+        }
+
+        menuNames.push(name.trim().toLowerCase());
+    }
+
+    // Verify each menu item's navigation
+    for (let i = 0; i < count; i++) {
+        const menuItem = this.sidebarMenuNames.nth(i);
+        const link = menuItem.locator('xpath=./ancestor::a');
+
+        try {
+            await link.click();
+
+            const text = menuNames[i];
+
+            await this.page.waitForURL(
+                url => url.href.toLowerCase().includes(text),
+                { timeout: 5000 }
+            );
+        } catch (e) {
+            console.error(`Navigation failed for menu: ${menuNames[i]}`, e);
+            return false;
+        }
+    }
+
+    return true;
+}
 }
