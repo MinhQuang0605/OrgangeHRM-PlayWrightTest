@@ -73,7 +73,7 @@ test.describe("Admin Page test", () => {
         await adminPage.successfulMessage.waitFor({state:"visible"})
         expect(await adminPage.successfulMessage).toBeTruthy()
     })
-    test.only("Add  invalid Job Titles", async ({ page }) => {
+    test("Add  invalid Job Titles", async ({ page }) => {
         const adminPage=new AdminPage(page)
         await adminPage.getJobtitles()
         await adminPage.addButton.click()
