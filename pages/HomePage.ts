@@ -127,6 +127,7 @@ export class HomePage {
         menuNames.push(name.trim().toLowerCase());
     }
 
+   // console.log(menuNames)
     // Verify each menu item's navigation
     for (let i = 0; i < count; i++) {
         const menuItem = this.sidebarMenuNames.nth(i);

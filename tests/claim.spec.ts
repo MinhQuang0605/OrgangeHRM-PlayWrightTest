@@ -29,7 +29,7 @@ test.describe("Assign Claim", () => {
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm
         // await claimPage.filldate("2026-02-11")
-        await claimPage.fillEmployeeBySuggestion("Manda")
+        await claimPage.fillEmployeeBySuggestion("Emily")
         await claimPage.clickSearchButton()
         //await expect(claimPage.errorResult).not.toBeVisible();
         await expect(claimPage.errorResult).toBeHidden();

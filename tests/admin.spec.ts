@@ -3,6 +3,8 @@ import { HomePage } from '../pages/HomePage'
 import { AdminPage } from '../pages/AdminPage'
 import { LoginPage } from '../pages/LoginPage'
 import process from 'node:process'
+import {UserProfile} from '../utils/faker'
+import { stat } from 'node:fs'
 
 
 test.describe("Admin Page test", () => {
@@ -17,7 +19,7 @@ test.describe("Admin Page test", () => {
     });
 
     test("Fill Username with valid value ", async ({ page }) => {
-
+        test.skip(!!process.env.PWDEBUG, "Skip while debugging")
         let value = "Admin"
         const adminPage = new AdminPage(page);
         await adminPage.fillUserName(value);
@@ -62,5 +64,20 @@ test.describe("Admin Page test", () => {
         await page.waitForTimeout(1000)
         expect(await adminPage.ErrorMessageResult).toBeTruthy()
         await page.waitForTimeout(2000)
+    })
+    test("Add new valid Job Titles", async ({ page }) => {
+        const adminPage=new AdminPage(page)
+        await adminPage.getJobtitles()
+        await adminPage.addButton.click()
+        await adminPage.fillJobTitle("Bussiness Analyst")
+        await adminPage.successfulMessage.waitFor({state:"visible"})
+        expect(await adminPage.successfulMessage).toBeTruthy()
+    })
+    test.only("Add  invalid Job Titles", async ({ page }) => {
+        const adminPage=new AdminPage(page)
+        await adminPage.getJobtitles()
+        await adminPage.addButton.click()
+        await adminPage.fillJobTitle("Account Assistant")
+         expect(await adminPage.alreadyExistMeggase).toBeTruthy()
     })
 })

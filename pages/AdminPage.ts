@@ -1,5 +1,6 @@
 import { Page, Locator } from '@playwright/test'
 import { hightlightAndScreenshot } from '../utils/screenshot';
+import { UserProfile } from '../utils/faker';
 export class AdminPage {
     readonly page: Page;
 
@@ -16,6 +17,13 @@ export class AdminPage {
     readonly ErrorMessageResult: Locator;
     readonly errorResult: Locator
     readonly loadingSpinner: Locator
+    readonly jobDropDown: Locator
+    readonly jobTitlesOption: Locator
+    readonly addButton: Locator
+    readonly jobTitleField: Locator
+    readonly saveButton: Locator
+    readonly successfulMessage:Locator
+    readonly alreadyExistMeggase:Locator
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
@@ -30,15 +38,24 @@ export class AdminPage {
         this.ErrorMessageResult = this.toast.locator('.oxd-toast-message').first()
         this.errorResult = page.locator('oxd-input-field-error-message').getByText('invalid')
         this.loadingSpinner = page.locator(".oxd-loading-spinner-container").first()
+        this.jobDropDown = page.locator(".oxd-topbar-body-nav-tab").nth(1)
+        this.jobTitlesOption = page.getByRole('listitem').filter({ hasText: /^Job Titles$/ })
+        this.addButton = page.getByRole("button", ({ name: 'Add' }))
+        this.jobTitleField = page.getByRole("textbox").nth(1)
+        this.saveButton = page.getByRole("button", ({ name: 'Save' }))
+        this.successfulMessage = page.getByText("Successfully Saved")
+        this.alreadyExistMeggase= page.getByText("Already Exist")
         // this.ErrorMessageResult = this.toast.locator('.oxd-toast-content-text');
         //this.ErrorMessageResult = page.getByRole('alert',{name:'No records Found'})
         //this.notifications = page.locator(".oxd-table-")
+        // <p data-v-7b563373="" data-v-35c8fe09="" class="oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text">Successfully Saved</p> 
+        // aka getByText('Successfully Saved')
     }
     async fillUserName(username: string): Promise<void> {
         await this.UsernameField.isVisible()
         await this.UsernameField.fill(username);
         await this.searchButton.isVisible()
-       // await this.searchButton.press('Enter')
+        // await this.searchButton.press('Enter')
         await this.searchButton.click()
     }
 
@@ -77,19 +94,38 @@ export class AdminPage {
         await console.log("Number of records: ", count)
         return await this.dataRows.count();
     }
+
+    async getJobtitles(): Promise<void> {
+        await this.jobDropDown.waitFor({ state: 'visible' })
+        await this.jobDropDown.click()
+        await this.jobTitlesOption.waitFor({ state: 'visible' })
+        await this.jobTitlesOption.click()
+    }
+
+    async fillJobTitle(JobTitle: string): Promise<void> {
+        await this.page.waitForTimeout(2000)
+        await this.jobTitleField.waitFor({ state: 'visible' })
+        await this.jobTitleField.fill(JobTitle)
+        await this.saveButton.click()
+        await this.successfulMessage.waitFor({state:'visible'})
+    }
+
+    async fillRandomJobTitles(user: UserProfile): Promise<void> {
+        await this.page.waitForTimeout(2000)
+        await this.jobTitleField.waitFor({ state: 'visible' })
+        await this.jobTitleField.fill(user.jobTitle)
+        await this.saveButton.click()
+        await this.successfulMessage.waitFor({state:'visible'})
+    }
+    
+    // async checkSuccesful():Promise<boolean>{
+    //     await this.successfulMessage.waitFor({state:'visible'})
+    //     return true
+    // }
+    //  async checkInvalid():Promise<boolean>{
+    //     await this.errorResult.waitFor({state:'visible'})
+    //     return true
+    // }
 }
-// await page.locator(".dropdown").click();
 
-// const options = page.locator(".dropdown-option");
 
-// const count = await options.count();
-
-// for (let i = 0; i < count; i++) {
-//     const text = await options.nth(i).textContent();
-
-//     if (text?.trim() === "Admin") {
-//         await options.nth(i).click();
-//         break;
-//     }
-// }
-//<input data-v-1f99f73c="" class="oxd-input oxd-input--active">

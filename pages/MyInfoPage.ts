@@ -48,7 +48,7 @@ export class MyInfoPage {
 
         //chon hinh va upload hinh
         await this.fileInput.waitFor({ state: 'attached', timeout: 10000 });
-        const filePath = join(__dirname, "..", "data/pics", "TestFile3.png")
+        const filePath = join(__dirname, "..", "data/pics", "Testfile3.png")
         await this.fileInput.setInputFiles(filePath);
         await this.page.waitForTimeout(5000);
 
