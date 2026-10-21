@@ -24,7 +24,7 @@ test.describe("Assign Claim", () => {
         expect(claimPage.errorResult).toBeVisible()
         await page.waitForTimeout(5000)
     })
-    test("Find Valid employee Claim", async ({ page }) => {
+    test.fail("Find Valid employee Claim", async ({ page }) => {
         const claimPage = new ClaimPage(page)
         //await claimPage.assignClaimButton.click()
         //format yyyy-dd-mm

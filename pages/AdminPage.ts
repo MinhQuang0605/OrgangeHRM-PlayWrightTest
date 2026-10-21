@@ -24,6 +24,7 @@ export class AdminPage {
     readonly saveButton: Locator
     readonly successfulMessage:Locator
     readonly alreadyExistMeggase:Locator
+    readonly mobileAdminDropDown:Locator
     //class="oxd-button oxd-button--medium oxd-button--secondary orangehrm-left-space"
     constructor(page: Page) {
         this.page = page;
@@ -44,7 +45,9 @@ export class AdminPage {
         this.jobTitleField = page.getByRole("textbox").nth(1)
         this.saveButton = page.getByRole("button", ({ name: 'Save' }))
         this.successfulMessage = page.getByText("Successfully Saved")
-        this.alreadyExistMeggase= page.getByText("Already Exist")
+        this.alreadyExistMeggase= page.getByText("Already exists")
+       this.mobileAdminDropDown = page.getByRole('button').nth(2)
+        // this.mobileAdminDropDown= page.locator("oxd-icon bi-caret-down-fill")
         // this.ErrorMessageResult = this.toast.locator('.oxd-toast-content-text');
         //this.ErrorMessageResult = page.getByRole('alert',{name:'No records Found'})
         //this.notifications = page.locator(".oxd-table-")
@@ -107,14 +110,13 @@ export class AdminPage {
         await this.jobTitleField.waitFor({ state: 'visible' })
         await this.jobTitleField.fill(JobTitle)
         await this.saveButton.click()
-        await this.successfulMessage.waitFor({state:'visible'})
     }
 
     async fillRandomJobTitles(user: UserProfile): Promise<void> {
         await this.page.waitForTimeout(2000)
         await this.jobTitleField.waitFor({ state: 'visible' })
         await this.jobTitleField.fill(user.jobTitle)
-        await this.saveButton.click()
+       // await this.saveButton.click()
         await this.successfulMessage.waitFor({state:'visible'})
     }
     

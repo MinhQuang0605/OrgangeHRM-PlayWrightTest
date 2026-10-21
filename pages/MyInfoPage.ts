@@ -19,6 +19,7 @@ export class MyInfoPage {
     readonly saveButton: Locator
     readonly fullNameText: Locator
     readonly loadingSpinner: Locator
+    readonly invalidFileMesssage:Locator
 
     constructor(page: Page) {
         this.page = page;
@@ -31,10 +32,11 @@ export class MyInfoPage {
         this.saveButton = page.getByRole('button', { name: 'save' }).nth(0)
         this.fullNameText = page.locator("h6.oxd-text--h6.--strong");
         this.loadingSpinner = page.locator(".oxd-loading-spinner-container").first()
+        this.invalidFileMesssage= page.getByText('File type not allowed').first()
     }
 
     //handle upload avatar
-    async uploadAvatar(): Promise<void> {
+    async uploadAvatar(itemName:string): Promise<void> {
         //click vao avater
         //doi toi khi avatar hien thi
         await this.avatarWrapper.waitFor({ state: 'visible', timeout: 10000 });
@@ -48,7 +50,7 @@ export class MyInfoPage {
 
         //chon hinh va upload hinh
         await this.fileInput.waitFor({ state: 'attached', timeout: 10000 });
-        const filePath = join(__dirname, "..", "data/pics", "Testfile3.png")
+        const filePath = join(__dirname, "..", "data/pics", itemName)
         await this.fileInput.setInputFiles(filePath);
         await this.page.waitForTimeout(5000);
 

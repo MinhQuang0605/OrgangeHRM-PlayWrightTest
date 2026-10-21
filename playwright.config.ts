@@ -23,18 +23,18 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   //reporter: 'html',
-   reporter: [
+  reporter: [
     ['list'],
     ['html']
   ],
-// Global timeout for each test
+  // Global timeout for each test
   timeout: 100000,
-//Tang timeout cho expect: doi element hien thi
-//expect(locator).toBeVisible() - cho den khi element hien thi
+  //Tang timeout cho expect: doi element hien thi
+  //expect(locator).toBeVisible() - cho den khi element hien thi
   expect: {
     timeout: 25000
   },
-  
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
@@ -44,7 +44,7 @@ export default defineConfig({
     trace: 'on-first-retry',
     // Chụp screenshot khi test fail
     screenshot: 'only-on-failure',
-    
+
     // Quay video khi test fail
     video: 'retain-on-failure',
 
@@ -60,16 +60,27 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: '**/mobileTest/**'
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      testIgnore: '**/mobileTest/**'
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      testIgnore: '**/mobileTest/**'
+    },
+    {
+      name: 'mobile-chrome',
+      use: { ...devices['Pixel 10'] },
+    },
+    {
+      name: 'mobile-safari',
+      use: {...devices['iPhone 15']},
     },
 
     /* Test against mobile viewports. */

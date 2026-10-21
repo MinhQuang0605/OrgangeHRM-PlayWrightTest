@@ -1,6 +1,5 @@
-import {test, expect} from '@playwright/test';
-import {LoginPage} from '../pages/LoginPage';
-
+import {test, expect} from '@playwright/test'
+import { LoginPage } from '../../pages/LoginPage';
 //describe: tao cum test case
 test.describe("Mobile Login Tests", ()=>{
     test("Test Login successful on Mobile", async({page})=>{

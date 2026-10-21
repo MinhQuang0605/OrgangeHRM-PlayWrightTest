@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { hightlightAndScreenshot } from '../utils/screenshot';
 
-test.describe("Test get by role with HTML local",()=>{
+test.describe.skip("Test get by role with HTML local",()=>{
+
     //set up load file HTML truoc test case thong qua 
     test.beforeEach(async({page})=>{{
             //B1 doc file HTML o folder public

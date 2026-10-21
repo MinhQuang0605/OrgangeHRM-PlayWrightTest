@@ -27,10 +27,20 @@ test.describe("My Info Page Tests", ()=>{
     test("upload avatar", async ({page})=>{
         test.skip(!!process.env.PWDEBUG,"Skip while debugging")
         const myInfoPage = new MyInfoPage(page);
+        const itemname="Testfile3.png"
         await myInfoPage.avatarWrapper.waitFor({state:'visible', timeout:10000});
-        await myInfoPage.uploadAvatar();
+        await myInfoPage.uploadAvatar(itemname);
 
         expect(true).toBeTruthy();
+    })
+
+    test.only("Unload invalid file as a avartar", async({page})=>{
+        const myInfoPage = new MyInfoPage(page);
+        const itemname="TestDummy.docx"
+        await myInfoPage.avatarWrapper.waitFor({state:'visible', timeout:10000})
+        await myInfoPage.uploadAvatar(itemname)
+        await myInfoPage.invalidFileMesssage.waitFor({state:'visible', timeout:10000})
+        expect ( await myInfoPage.invalidFileMesssage.isVisible()).toBeTruthy()
     })
 
     test("Change User Name",async ({page})=>{

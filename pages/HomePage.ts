@@ -16,7 +16,7 @@ export class HomePage {
     readonly searchField: Locator;
     readonly itemLabel: Locator;
     readonly quickLauchButton: Locator;
-
+    readonly hamburgerMenu:Locator;
     constructor(page: Page) {
         this.page = page;
         this.sidebarMenuItems = page.locator(".oxd-main-menu-item-wrapper a.oxd-main-menu-item");
@@ -24,6 +24,7 @@ export class HomePage {
         this.searchField = page.getByRole("textbox", { name: 'Search' })
         this.itemLabel = page.getByLabel("")
         this.quickLauchButton = page.locator(".orangehrm-quick-launch-icon")
+        this.hamburgerMenu = page.locator(".oxd-topbar-header-hamburger")
     }
 
     //Lay danh sach ten cac menu trong sidebar

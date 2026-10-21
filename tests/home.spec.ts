@@ -38,11 +38,18 @@ test.describe("Home Page Tests", ()=>{
     test("Verify Quick Lauch Button", async({page})=>{
       const homePage = new HomePage(page);
       const menuButtons=await homePage.getQuickLaunchButton();
-      console.log("Number of buttons: ", menuButtons);
+      console.log("Number of buttons: ", menuButtons.length);
       expect(menuButtons.length).toBeGreaterThan(0)
     })
     test("Click Side bar menu button",async({page})=>{
       const homePage= new HomePage(page);
      expect(homePage.verifySideBarMenuPath()).toBeTruthy()
+    })
+    test.skip("Verify Sidebar menu item on mobile device", async({page})=>{
+      const homePage = new HomePage(page)
+      await homePage.hamburgerMenu.waitFor({state:'visible',timeout:10000})
+      const menuItem=await homePage.getSideBarMenuItems()
+      expect(menuItem.length).toBeGreaterThan(0);
+      await homePage.clickItemOnMenu("Admin")
     })
 });
