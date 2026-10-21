@@ -34,7 +34,7 @@ test.describe("My Info Page Tests", ()=>{
         expect(true).toBeTruthy();
     })
 
-    test.only("Unload invalid file as a avartar", async({page})=>{
+    test"Unload invalid file as a avartar", async({page})=>{
         const myInfoPage = new MyInfoPage(page);
         const itemname="TestDummy.docx"
         await myInfoPage.avatarWrapper.waitFor({state:'visible', timeout:10000})
