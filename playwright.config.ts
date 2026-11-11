@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { suite } from 'node:test';
 
 /**
  * Read environment variables from file.
@@ -11,6 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -25,7 +27,14 @@ export default defineConfig({
   //reporter: 'html',
   reporter: [
     ['list'],
-    ['html']
+    ['html'],
+    ['allure-playwright',
+       {
+        resultsDir: 'allure-results',
+        detail: true,
+        suiteTitle: true,
+      },
+    ]
   ],
   // Global timeout for each test
   timeout: 100000,
@@ -77,10 +86,12 @@ export default defineConfig({
     {
       name: 'mobile-chrome',
       use: { ...devices['Pixel 10'] },
+      testDir: '**/mobileTest/**'
     },
     {
       name: 'mobile-safari',
       use: {...devices['iPhone 15']},
+      testDir: '**/mobileTest/**'
     },
 
     /* Test against mobile viewports. */

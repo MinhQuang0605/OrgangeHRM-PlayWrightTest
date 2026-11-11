@@ -20,7 +20,12 @@ export class MyInfoPage {
     readonly fullNameText: Locator
     readonly loadingSpinner: Locator
     readonly invalidFileMesssage:Locator
-
+    readonly attachmentSizeMessage:Locator
+    readonly requiredMessage:Locator
+    readonly longNameMessage:Locator
+    readonly invalidDateMessage:Locator;
+    readonly dateOfBirth:Locator;
+    
     constructor(page: Page) {
         this.page = page;
         this.avatarWrapper = page.locator(".orangehrm-edit-employee-image-wrapper");
@@ -33,6 +38,11 @@ export class MyInfoPage {
         this.fullNameText = page.locator("h6.oxd-text--h6.--strong");
         this.loadingSpinner = page.locator(".oxd-loading-spinner-container").first()
         this.invalidFileMesssage= page.getByText('File type not allowed').first()
+        this.attachmentSizeMessage= page.getByText('Attachment Size Exceeded').first()
+        this.longNameMessage= page.getByText('Should not exceed 30 characters').first()
+        this.requiredMessage = page.getByText('Required').first()
+        this.invalidDateMessage = page.getByText('Should be a valid date in yyyy-dd-mm format').first()
+        this.dateOfBirth= page.locator(".oxd-date-wrapper").nth(1)
     }
 
     //handle upload avatar

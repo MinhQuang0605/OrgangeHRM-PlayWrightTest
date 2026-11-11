@@ -5,10 +5,12 @@
 This project demonstrates basic testing using Playwright.
 The purpose of this project is to practice automated testing for web applications.
 
-The test cases cover simple scenarios such as:
+The [test cases](https://docs.google.com/spreadsheets/d/1wmeItPXGKtf6fGQxil-XVXtkQe0kOaT-22OtXpulwSo/edit?gid=0#gid=0) cover  scenarios such as:
 * Login functionality
 * Navigation between pages
 * Basic UI validation
+* Validate data on pages
+* Modifing data on page
 * Login with CSV
 
 
@@ -23,20 +25,27 @@ The test cases cover simple scenarios such as:
 project-root
 │
 ├── tests/               # Test cases
+│   ├── admin.spec.ts
+│   ├── claim.spec.ts
 │   ├── home.spec.ts
+│   ├── myinfo.spec.ts
 │   ├── login-data.spec.ts
 │   ├── login.spec.ts
-│   ├── mobileLoginTest.spec.ts
-│   ├── myinfo.spec.ts
+│   ├── mobileTest
+│       ├─── mobileAdmin.spec.ts
+│       ├─── mobileHome.spec.ts
+│       ├─── mobileLoginTest.spec.ts
 │
 ├── pages/               # Page Object Models
 │   ├── LoginPage.ts
 │   ├── HomePage.ts
 │   ├── MyInfoPage.spec.ts
+│   ├── Claim.spec.ts
+│   ├── Admin.spec.ts
 ├── utils/
 │   ├── csvreader.ts
 │   ├── screenshot.ts
-│
+│   ├── faker.ts
 ├── playwright.config.ts # Playwright configuration
 ├── package.json
 └── README.md

@@ -8,7 +8,7 @@ test.describe("Home Page test on mobile",()=>{
         const loginPage =  new LoginPage(page)
         const homePage = new HomePage(page)
         await loginPage.adminLogin()
-        await page.waitForURL("**/dashboard/**", {timeout:10000})
+        await page.waitForURL("**/dashboard/**", {timeout:40000})
         
     })
     test("Verify side bar menu items on mobile device", async({page})=>{

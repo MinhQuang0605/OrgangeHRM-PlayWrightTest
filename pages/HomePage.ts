@@ -16,7 +16,10 @@ export class HomePage {
     readonly searchField: Locator;
     readonly itemLabel: Locator;
     readonly quickLauchButton: Locator;
-    readonly hamburgerMenu:Locator;
+    readonly hamburgerMenu: Locator;
+    readonly pageTitle:Locator;
+    readonly collapsedButton:Locator;
+    readonly clockIconButton:Locator;
     constructor(page: Page) {
         this.page = page;
         this.sidebarMenuItems = page.locator(".oxd-main-menu-item-wrapper a.oxd-main-menu-item");
@@ -25,8 +28,10 @@ export class HomePage {
         this.itemLabel = page.getByLabel("")
         this.quickLauchButton = page.locator(".orangehrm-quick-launch-icon")
         this.hamburgerMenu = page.locator(".oxd-topbar-header-hamburger")
+        this.pageTitle = page.locator(".oxd-topbar-header-breadcrumb")
+        this.collapsedButton= page.locator(".oxd-main-menu-button")
+        this.clockIconButton= page.locator('.oxd-icon.bi-stopwatch').first();
     }
-
     //Lay danh sach ten cac menu trong sidebar
     async getSideBarMenuItems(): Promise<string[]> {
         //Dem so luong locator sau khi tim
@@ -114,41 +119,58 @@ export class HomePage {
     }
 
     async verifySideBarMenuPath(): Promise<boolean> {
-    const count = await this.sidebarMenuNames.count();
-    const menuNames: string[] = [];
-    //await this.page.waitForTimeout(3000);
-    // Capture all menu names before navigating
-    for (let i = 0; i < count; i++) {
-        const name = await this.sidebarMenuNames.nth(i).textContent();
+        const count = await this.sidebarMenuNames.count();
+        const menuNames: string[] = [];
+        //await this.page.waitForTimeout(3000);
+        // Capture all menu names before navigating
+        for (let i = 0; i < count; i++) {
+            const name = await this.sidebarMenuNames.nth(i).textContent();
 
-        if (!name?.trim()) {
-            return false;
+            if (!name?.trim()) {
+                return false;
+            }
+
+            menuNames.push(name.trim().toLowerCase());
         }
 
-        menuNames.push(name.trim().toLowerCase());
-    }
+        // console.log(menuNames)
+        // Verify each menu item's navigation
+        for (let i = 0; i < count; i++) {
+            const menuItem = this.sidebarMenuNames.nth(i);
+            const link = menuItem.locator('xpath=./ancestor::a');
 
-   // console.log(menuNames)
-    // Verify each menu item's navigation
-    for (let i = 0; i < count; i++) {
-        const menuItem = this.sidebarMenuNames.nth(i);
-        const link = menuItem.locator('xpath=./ancestor::a');
+            try {
+                await link.click();
 
-        try {
-            await link.click();
+                const text = menuNames[i];
 
-            const text = menuNames[i];
-
-            await this.page.waitForURL(
-                url => url.href.toLowerCase().includes(text),
-                { timeout: 5000 }
-            );
-        } catch (e) {
-            console.error(`Navigation failed for menu: ${menuNames[i]}`, e);
-            return false;
+                await this.page.waitForURL(
+                    url => url.href.toLowerCase().includes(text),
+                    { timeout: 5000 }
+                );
+            } catch (e) {
+                console.error(`Navigation failed for menu: ${menuNames[i]}`, e);
+                return false;
+            }
         }
+
+        return true;
     }
 
-    return true;
+    async findDashBoardHeader(titlename: string): Promise<boolean> {
+    // 1. Wait for the element
+    await this.pageTitle.waitFor({ state: 'visible' });
+
+    // 2. Use textContent() and AWAIT it immediately
+    const title = await this.pageTitle.textContent();
+    
+    // Clean up whitespace if necessary
+    const cleanedTitle = title?.trim();
+
+    console.log(cleanedTitle); // This will now log "Dashboard"
+
+    // 3. Compare the resolved string
+    return cleanedTitle === titlename;
 }
+    
 }

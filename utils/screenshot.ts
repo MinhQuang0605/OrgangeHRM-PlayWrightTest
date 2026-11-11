@@ -27,8 +27,6 @@ export async function hightlightAndScreenshot(
     //__dirname: thu muc hien tai cua file screenshot.ts
     // ..: tro ve thu muc cha utils
     const screenshotDir = join(__dirname, "..", "screenshot", folderName);
-
-
     //B3 Tao folder
     mkdirSync(screenshotDir, { recursive: true });
 

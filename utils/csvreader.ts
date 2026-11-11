@@ -13,6 +13,7 @@ export interface LoginData {
     password: string;
     expected_result: string;
     description: string;
+    testID:string;
 }
 
 export const readDataFromCSV =  (): LoginData[] => {

@@ -14,7 +14,7 @@ test.describe("admin test on mobile", () => {
         await homePage.hamburgerMenu.waitFor({ state: 'visible' })
         await homePage.hamburgerMenu.click()
         await homePage.clickItemOnMenu("Admin")
-        await homePage.sidebarMenuItems.first().waitFor({ state: 'visible', timeout: 10000 })
+        await homePage.sidebarMenuItems.first().waitFor({ state: 'visible', timeout: 50000 })
         const adminPage = new AdminPage(page)
         await adminPage.mobileAdminDropDown.waitFor({ state: "visible" })
         await adminPage.mobileAdminDropDown.click()

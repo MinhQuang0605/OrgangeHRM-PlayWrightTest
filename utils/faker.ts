@@ -3,7 +3,8 @@ export interface UserProfile {
     firstName: string,
     middleName: string,
     lastName: string,
-    jobTitle: string
+    jobTitle: string,
+    nationality:string
 }
 
 
@@ -12,6 +13,7 @@ export function randomProfileGenerate(): UserProfile {
         firstName: faker.person.firstName(),
         middleName: faker.person.middleName(),
         lastName: faker.person.lastName(),
-        jobTitle: faker.person.jobTitle()
+        jobTitle: faker.person.jobTitle(),
+        nationality: faker.location.country(),
     }
 }

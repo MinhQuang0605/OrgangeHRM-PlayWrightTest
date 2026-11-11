@@ -20,10 +20,20 @@ export class LoginPage {
 
     }
 
+    async gotoLoginPage():Promise<void>{
+            try {
+            await this.page.goto(env.BASE_URL, {
+                waitUntil: 'load',
+                timeout: 60000,
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
     async loginWithScreenShot(username: string, password: string): Promise<void> {
         //B1: Navigate vao login page
         await this.page.waitForTimeout(3000);
-        await this.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        await this.page.goto(env.BASE_URL);
 
         //B2: fill username vao input
         await this.usernameInput.fill(username);
